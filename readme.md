@@ -1,4 +1,4 @@
-This document contains the workflow for the processing of the Facebook Population Density Data and the NOAH hazard maps to compute for the total area of population and the number of affected population per hazard level. Open-source tools like Python, GeoPandas, Fiona, GDaL, and QGIS will be used for this methodology.
+This document contains the workflow for the processing of the Facebook Population Density Data and the NOAH hazard maps to compute for the total area of population and the area of affected population per hazard level. Open-source tools like Python, GeoPandas, Fiona, GDaL, and QGIS will be used for this methodology.
 
 ## Dependencies:
 
@@ -63,7 +63,7 @@ Your folder configuration should look similar to this:
 - config.py
 - pre-processing.py
 - processing.py
-- pivot.py
+- pivot_table.py
 - `input`
     - `Province 1`
         - SSA4
@@ -87,21 +87,25 @@ Your folder configuration should look similar to this:
 1. On your terminal (cmd prompt/ conda), go to your base folder path. Run `cd /Users/localUser/UPRI/FacebookProcessing`
 2. Run `python [pre-processing.py](http://pre-processing.py)` to generate the clipped population density data and the polygonized population density data.
 3. If successfully ran, your terminal should look similar like this:
-4. Check your input > Province folders for the generated files (_clip.tif, and _poly.gpkg).
+4. Check your `input` > `Province` folders for the generated files:
+    - `Province_clip.tif`- clipped population data according to province
+    - `Province_pop_poly.gpkg` - polygonized population data
+    - `Province_bounds.shp` - provincial boundary
+    - `Province_bgys.shp` - barangay boundary for this province
 
 ## Pre-processing of the data (Part 2)
 
 In this step, you will be needing to run the pre-processing tool using QGIS. This model is designed to process only one province at once so this might take some time.
 
 1. Open QGIS.
-2. Go to Processing > Graphical Modeler > Open > pre-processing_2.model3 > Open
-3. Double-click the Fix Geometries algorithm and select the Input Layer as the _poly.gpkg from your Input > Province folder. This is one of the output files from the Pre-processing Part 1.
-4. In the Intersection algorithm, set the Input Layer as the barangay boundaries (_brgy.shp) from your Input > Province folder. 
+2. Go to `Processing` > `Graphical Modeler` > `Open` > `pre-processing_2.model3` > `Open`
+3. Double-click the `Fix Geometries` algorithm and select the `Input Layer` as the `_poly.gpkg` from your `Input` > `Province` folder. This is one of the output files from the Pre-processing Part 1.
+4. In the `Intersection` algorithm, set the `Input Layer` as the barangay boundaries (`_bgy.shp`) from your `Input` > `Province` folder. 
 5. Click `Run model` to start the processing. 
 
 ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fb1df717-7e1b-4885-a607-e0aff7c3fa01/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fb1df717-7e1b-4885-a607-e0aff7c3fa01/Untitled.png)
 
-6. You will be asked for the output path and file for out_inte. Name it as `Province 1_inte.gpkg` then click `Run`.
+6. You will be asked for the output path and file for `out_inte`. Name it as `Province 1_inte.gpkg` then click `Run`.
 
 7. Wait for it to finish running and processing.
 
@@ -110,8 +114,8 @@ In this step, you will be needing to run the pre-processing tool using QGIS. Thi
 Once you have completed the first two pre-processing steps, you are now ready to proceed with the processing method.
 
 1. On your terminal, run `python processing.py`
-2. The intersection may take a while especially if you have large input files size. Wait for it to finish running and check the output files from the output > Province folders.
-3. Your output > Province folder should contain the following:
-    - Province_Haz_utm - reprojected hazard to UTM
-    - Province_Haz_diss - dissolved version of the reprojected hazard
-    - Province_Haz_Bgy - intersected vector of the dissolved hazard vector and the polygonized population data. This contains the computation of area of population, area of hazard, and number of affected population that is aggregated per barangay
+2. The intersection may take a while especially if you have large input files size. Wait for it to finish running and check the output files from the `output` > `Province` folders.
+3. Your `output` > `Province` folder should contain the following:
+    - `Province_Haz_utm.shp` - reprojected hazard to UTM
+    - `Province_Haz_diss.shp` - dissolved version of the reprojected hazard
+    - `Province_Haz_Bgy.shp` - intersected vector of the dissolved hazard vector and the polygonized population data. This contains the computation of area of population, area of hazard, and number of affected population that is aggregated per barangay
