@@ -1,4 +1,4 @@
-This document contains the workflow for the processing of the Facebook Population Density Data and the NOAH hazard maps to compute for the total area of population and the area of affected population per hazard level. Open-source tools like Python, GeoPandas, Fiona, GDaL, and QGIS will be used for this methodology.
+This document contains the workflow for the processing of the Facebook Population Density Data and the NOAH hazard maps to compute for the total area of population and the number of affected population per hazard level. Open-source tools like Python, GeoPandas, Fiona, GDaL, and QGIS will be used for this methodology.
 
 ## Dependencies:
 
