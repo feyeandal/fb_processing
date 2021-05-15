@@ -18,6 +18,8 @@ All of the mentioned tools above are mandatory, so make sure that you have prope
 2. Download and install `GDAL` on your machine. GDAL is a translator library for raster and vector spatial data formats. We will be using GDAL to process the raster data from Facebook. Check this [link](https://gdal.org/download.html#current-releases) to download GDAL. After downloading your version, install GDAL with standard settings.
 3. Once your GDAL is installed on your machine, we need to tell your OS where the GDAL installations are located. We need to add some system variables.
 
+## Data Processing
+
 The processing of the data is divided into three methods:
 
 1. Pre-processing of the data (Part 1). This involves clipping the population density (raster) to your assigned province and converting the clipped population density to a vector format using a python script.
