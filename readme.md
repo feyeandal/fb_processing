@@ -24,7 +24,7 @@ The processing of the data is divided into three methods:
 
 1. Pre-processing of the data (Part 1). This involves clipping the population density (raster) to your assigned province and converting the clipped population density to a vector format using a python script.
 2. Pre-processing of the data (Part 2). This method involves using QGIS model builder to be able to run fix geometries of the converted population density data and intersect this with the barangay boundaries containing the 2015 census data.
-3. Processing of the population and hazard data. The last part involves computation of the area of population per barangay and the area of affected population per hazard level. This will be used to compute the total affected population per hazard. This part will be ran using a python script.
+3. Processing of the population and hazard data. This part involves computation of the area of population per barangay and the area of affected population per hazard level. This will be used to compute the total affected population per hazard. This part will be ran using a python script.
 4. Generation of pivot table. This contains a pivot table of the computation generated from the processing script.
 
 ## Data Requirements:
