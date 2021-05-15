@@ -103,7 +103,7 @@ In this step, you will be needing to run the pre-processing tool using QGIS. Thi
 4. In the `Intersection` algorithm, set the `Input Layer` as the barangay boundaries (`_bgy.shp`) from your `Input` > `Province` folder. 
 5. Click `Run model` to start the processing. 
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fb1df717-7e1b-4885-a607-e0aff7c3fa01/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fb1df717-7e1b-4885-a607-e0aff7c3fa01/Untitled.png)
+![](https://raw.githubusercontent.com/feyeandal/photos/master/pre_processing.png)
 
 6. You will be asked for the output path and file for `out_inte`. Name it as `Province 1_inte.gpkg` then click `Run`.
 
