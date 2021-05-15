@@ -99,7 +99,7 @@ if __name__ == "__main__":
             #         read_haz = gpd.read_file(full_file_path)
             #         pre_processing_data(output_path)
                 
-                if file.endswith('.gpkg'):
+                if file.endswith('_inte.gpkg'):
                     full_file_path = os.path.join(folder_path, file)
                     # Compute for the area of a population per barangay (Calls the function)
                     read_int = gpd.read_file(full_file_path)
