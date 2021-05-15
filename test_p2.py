@@ -97,6 +97,7 @@ if __name__ == "__main__":
                 if file.endswith(haz):
                     full_file_path = os.path.join(folder_path, file)
                     read_haz = gpd.read_file(full_file_path)
+                    print('Pre-processing the haz data')
                     pre_processing_data(output_path)
                 
                 if file.endswith('_inte.gpkg'):
