@@ -10,6 +10,13 @@ output_folder = os.path.join(fpath, 'output')
 print(output_folder)
 provinces = os.listdir(input_path)
 print(provinces)
+
+# Try to create the output folder first
+try:
+    os.makedirs(output_folder, exist_ok = True)
+except Exception as e:
+    print(e)
+
 for prov in provinces:
     folder_path = os.path.join(fpath, 'input', prov) # Create the absolute path
     # print(folder_path)
@@ -39,9 +46,4 @@ for file in os.listdir(folder_path):
 # haz_files = [os.path.join(folder_path, file) for file in files_all if ".gpkg" in file]
 
 # haz_files_out = [os.path.join(output_path, file) for file in files_all if ".shp" in file]
-
-try:
-    os.makedirs(output_folder, exist_ok = True)
-except Exception as e:
-    print(e)
 
