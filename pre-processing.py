@@ -5,10 +5,17 @@ from config import *
 
 # Read IMTWG provincial boundary
 imtwg_bounds = gpd.read_file('Boundary_Province_Visual.shp')
+bgy_bounds = gpd.read_file('Barangay.shp')
 
 for prov in provinces:
     folder_path = os.path.join(fpath, 'input', prov) # Create the absolute path
     output_path = os.path.join(fpath, 'output', prov)
+    bgy_bounds_filter = bgy_bounds[bgy_bounds.Pro_Name==prov].index
+    bgy_bounds_filter_geom = bgy_bounds.loc[bgy_bounds_filter, 'geometry']
+    bgy_bounds_filter_geom_utm = bgy_bounds_filter_geom.to_crs('EPSG:32651')
+    bgy_bounds_filter_geom_utm.to_file(folder_path + '/' + prov + '_bgys.shp')
+
+
     # Filter prov boundary according to the provinces and convert its projection
     imtwg_bounds_filter = imtwg_bounds[imtwg_bounds.Pro_Name==prov].index
     imtwg_bounds_filter_geom = imtwg_bounds.loc[imtwg_bounds_filter, 'geometry']
