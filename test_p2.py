@@ -1,4 +1,4 @@
-import os
+from os import path
 import geopandas as gpd
 from config import *
 
@@ -92,12 +92,12 @@ if __name__ == "__main__":
         output_path = os.path.join(fpath, 'output', prov)
         for file in os.listdir(folder_path):
             # print(file) # list all items in a dir
-            # hazards = ['StormSurge_SSA4.shp', 'LH.shp']
-            # for haz in hazards:
-            #     if file.endswith(haz):
-            #         full_file_path = os.path.join(folder_path, file)
-            #         read_haz = gpd.read_file(full_file_path)
-            #         pre_processing_data(output_path)
+            hazards = ['StormSurge_SSA4.shp', 'LH.shp', 'Fl.shp']
+            for haz in hazards:
+                if file.endswith(haz):
+                    full_file_path = os.path.join(folder_path, file)
+                    read_haz = gpd.read_file(full_file_path)
+                    pre_processing_data(output_path)
                 
                 if file.endswith('_inte.gpkg'):
                     full_file_path = os.path.join(folder_path, file)
