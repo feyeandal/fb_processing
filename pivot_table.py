@@ -37,11 +37,16 @@ for prov in provinces:
             read_fl.append(affected_pivot2)
     
     for ssa in read_ssa:
-        # print(ssa)
+        print(ssa)
         for lh in read_lh:
-            # print(lh)
+            print(lh)
             for fl in read_fl:
+                print('flood')
                 print(fl)
-                result = (pd.merge(pd.merge(ssa, lh, on=['Bgy_Code', 'Bgy_Name', 'Pop2015', 'Mun_Code', 'Mun_Name', 'Pro_Code', 'Pro_Name', 'A1']), fl, on=['Bgy_Code', 'Bgy_Name', 'Pop2015', 'Mun_Code', 'Mun_Name', 'Pro_Code', 'Pro_Name', 'A1']))
-                print(result)
+                # result = (pd.merge(pd.merge(lh, ssa, on=['Bgy_Code', 'Bgy_Name', 'Pop2015', 'Mun_Code', 'Mun_Name', 'Pro_Code', 'Pro_Name', 'A1']), fl, on=['Bgy_Code', 'Bgy_Name', 'Pop2015', 'Mun_Code', 'Mun_Name', 'Pro_Code', 'Pro_Name', 'A1']))
+                result = (lh.merge(ssa, on=['Bgy_Name', 'Pop2015', 'Mun_Code', 'Mun_Name', 'Pro_Code', 'Pro_Name', 'A1'], how='outer')).merge(fl, on=['Bgy_Name', 'Pop2015', 'Mun_Code', 'Mun_Name', 'Pro_Code', 'Pro_Name', 'A1'], how='outer')
+                # result2 = result.merge(fl, on=['Bgy_Name', 'Pop2015', 'Mun_Code', 'Mun_Name', 'Pro_Code', 'Pro_Name', 'A1'], how='outer')
+                # result23 = result2.drop(['_merge'], axis=1, inplace=True, errors='ignore')
+                # print(result2)
+                # .query('_merge != "both"').drop('_merge', 1)
                 result.to_csv(output_path + '/' + prov + '_affected.csv')
