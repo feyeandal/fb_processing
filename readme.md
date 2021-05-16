@@ -122,3 +122,8 @@ Once you have completed the first two pre-processing steps, you are now ready to
     - `Province_Haz_utm.shp` - reprojected hazard to UTM
     - `Province_Haz_diss.shp` - dissolved version of the reprojected hazard
     - `Province_Haz_Bgy.shp` - intersected vector of the dissolved hazard vector and the polygonized population data. This contains the computation of area of population, area of hazard, and number of affected population that is aggregated per barangay
+
+## Generation of pivot table for summary
+
+1. Run `python pivot_table.py` on your terminal.
+2. Check your `output` > `Province` folder and open the generated pivot table (`_affected.csv`).
