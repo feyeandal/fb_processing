@@ -17,9 +17,10 @@ This document contains the workflow for the processing of the Facebook Populatio
 
 All of the mentioned tools above are mandatory, so make sure that you have properly set-up everything before you run the scripts.
 
-1. Install `Python 3.9.1` or higher on your machine. You may check this [link](https://www.python.org/downloads/) for the active Python releases.
+1. Install `Python 3.9.1` or higher on your machine. You may check this [link](https://www.python.org/downloads/) for the active Python releases. Alternatively, you may install `Anaconda` Python distribution. This already contains packages for GDAL (that is also required for this set-up). Check this [link](https://docs.conda.io/projects/conda/en/latest/user-guide/install/windows.html) to download and install Anaconda.
 2. Download and install `GDAL` on your machine. GDAL is a translator library for raster and vector spatial data formats. We will be using GDAL to process the raster data from Facebook. Check this [link](https://gdal.org/download.html#current-releases) to download GDAL. After downloading your version, install GDAL with standard settings.
-3. Once your GDAL is installed on your machine, we need to tell your OS where the GDAL installations are located. We need to add some system variables.
+3. Once your GDAL is installed on your machine, we need to tell your OS where the GDAL installations are located. We need to add some system variables on your python path.
+4. For Anaconda users, you may install GDAL by running `conda create -n gdal_env -c conda-forge gdal` on your conda terminal.
 
 ## Data Processing
 
@@ -121,3 +122,8 @@ Once you have completed the first two pre-processing steps, you are now ready to
     - `Province_Haz_utm.shp` - reprojected hazard to UTM
     - `Province_Haz_diss.shp` - dissolved version of the reprojected hazard
     - `Province_Haz_Bgy.shp` - intersected vector of the dissolved hazard vector and the polygonized population data. This contains the computation of area of population, area of hazard, and number of affected population that is aggregated per barangay
+
+## Generation of pivot table for summary
+
+1. Run `python pivot_table.py` on your terminal.
+2. Check your `output` > `Province` folder and open the generated pivot table (`_affected.csv`).
