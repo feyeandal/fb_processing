@@ -51,40 +51,18 @@ def compute_area(output_path):
     pop_diss.to_file(output_path + '/' + prov + '_FB_Bgy.gpkg', driver='GPKG')
     return pop_diss
 
-def compute_affected_ssa(df1, df2):
+def compute_affected(df1, df2):
     """
     Compute affected population by SSA4 haz.
     """
-    affected = gpd.overlay(df1, df2, how='intersection')
+    hazards_code = ['SSA', 'Fl']
+    affected = gpd.overlay(ssa, pop, how='intersection')
     affected["A2"] = affected['geometry'].area
     affected["aff"] = (affected['A2']/affected['A1'])
     affected["Pop_Aff"] = (affected['A2']/affected['A1']) * affected['Pop2015']
-    i = 0
-    affected.to_file(output_path + '/' + prov + '_SSA4_Bgy.shp')
-    out_int = (output_path + '/' + prov + '_SSA4_Bgy.shp')
-    while path.exists(out_int):
-         out_int = (output_path + '/' + prov + '_SSA4_Bgy' + str(i) + '.shp')
-         i += 1
-
-def compute_affected_lh(df1, df2):
-    """
-    Compute affected population by Landslide haz.
-    """
-    affected = gpd.overlay(df1, df2, how='intersection')
-    affected["A2"] = affected['geometry'].area
-    affected["aff"] = (affected['A2']/affected['A1'])
-    affected["Pop_Aff"] = (affected['A2']/affected['A1']) * affected['Pop2015']
-    affected.to_file('Pampanga_LH_Bgy.shp')
-
-def compute_affected_fl(df1, df2):
-    """
-    Compute affected population by 100-Year Flood haz.
-    """
-    affected = gpd.overlay(df1, df2, how='intersection')
-    affected["A2"] = affected['geometry'].area
-    affected["aff"] = (affected['A2']/affected['A1'])
-    affected["Pop_Aff"] = (affected['A2']/affected['A1']) * affected['Pop2015']
-    affected.to_file('Pampanga_Fl_Bgy.shp')
+    for hazard in hazards_code:
+        if hazard in filed:
+            affected.to_file(output_path + '/' + prov + "_" + hazard + '_affected.shp')
 
 if __name__ == "__main__":
     for prov in provinces:
@@ -109,39 +87,33 @@ if __name__ == "__main__":
 
         compare_pop = []
         compare_ssa = []
-        compare_lh = []
-        compare_fl = []
+        filename_t = []
 
         for file in os.listdir(output_path):
+            filenametype = ['_SSA_diss.shp', '_Fl_diss.shp', '_LH_diss.shp']
             if file.endswith('_FB_Bgy.gpkg'):
+                # print(file)
                 out_file_path = os.path.join(output_path, file)
                 read_pop = gpd.read_file(out_file_path)
                 compare_pop.append(read_pop)
 
-            elif file.endswith('_SSA_diss.shp'):
-                out_file_path = os.path.join(output_path, file)
-                read_haz = gpd.read_file(out_file_path)
-                compare_ssa.append(read_haz)
-            
-            elif file.endswith('_LH_diss.shp'):
-                out_file_path = os.path.join(output_path, file)
-                read_haz = gpd.read_file(out_file_path)
-                compare_ssa.append(read_haz)
+            for filename in filenametype:
+                # print(filename)
+                if file.endswith(filename):
+                    # print(file)
+                    out_file_path = os.path.join(output_path, file)
+                    # print(out_file_path)
+                    read_haz = gpd.read_file(out_file_path)
+                    filename_t.append(file)
+                    compare_ssa.append(read_haz)
 
-            elif file.endswith('_Fl_diss.shp'):
-                out_file_path = os.path.join(output_path, file)
-                read_haz = gpd.read_file(out_file_path)
-                compare_fl.append(read_haz)
-
-        # Compute affected pop from the dataframes
-        for pop in compare_pop:
+        hazards_code = ['SSA', 'Fl', 'LH']
+        for filed in filename_t:
+            print('Computing for affected population')
+            # print(filed)
             for ssa in compare_ssa:
-                print('Computing affected pop area by SSA4')
-                compute_affected_ssa(pop, ssa)
-            # for lh in compare_lh:
-                # print('Computing affected pop area by LH')
-            #     compute_affected_lh(pop, lh)
-            # for fl in compare_fl:
-                # print('Computing affected pop area by Flood')
-            #     compute_affected_fl(pop, fl)
+                # print(ssa)
+                for pop in compare_pop:
+                    compute_affected(ssa, pop)
+       
     print('Processing Done.')
