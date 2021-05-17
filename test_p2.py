@@ -2,22 +2,11 @@ from os import path
 import geopandas as gpd
 from config import *
 
-def make_output_folders(path): # Create function to create output folders
-    # make folder using path
-    """Create output folders."""
-    try:
-        os.mkdir(output_folder)
-    except Exception as e:
-        print(e)
-    
-    try:
-        os.mkdir(output_path)
-    except Exception as e:
-        print(e)
-
 def pre_processing_data(output_path):
-    """Does pre-processing to the input hazard files such as converting its projection to UTM, normalizing haz cols, fixing geometries,
-    and dissolving shapes."""
+    """
+    Does pre-processing to the input hazard files such as converting its projection to UTM, normalizing haz cols, fixing geometries,
+    and dissolving shapes.
+    """
     hazards_code = ['SSA', 'LH', 'Fl']
                 # Convert haz file to UTM
     ssa_utm = read_haz.to_crs('EPSG:32651')
@@ -25,7 +14,7 @@ def pre_processing_data(output_path):
         if code in haz:
             print('Converting haz files to UTM')
             ssa_utm.to_file(output_path + "/" + prov + '_' + code + '_utm.shp')
-    # Rename all haz files column to 'HAZ' for consitency
+    # Rename all haz files column to 'HAZ' for consistency
     col_names = ['LH', 'VAR']
     for col in col_names:
         if col in ssa_utm.columns:
