@@ -1,26 +1,33 @@
 import os
 import geopandas as gpd
+from geopandas.tools import sjoin
 import fiona
 from config import *
 
-# Read IMTWG provincial boundary
-imtwg_bounds = gpd.read_file('Boundary_Province_Visual.shp')
-bgy_bounds = gpd.read_file('Barangay.shp')
-
-for prov in provinces:
-    folder_path = os.path.join(fpath, 'input', prov) # Create the absolute path
-    output_path = os.path.join(fpath, 'output', prov)
-    bgy_bounds_filter = bgy_bounds[bgy_bounds.Pro_Name==prov].index
-    bgy_bounds_filter_geom = bgy_bounds.loc[bgy_bounds_filter, 'geometry']
-    bgy_bounds_filter_geom_utm = bgy_bounds_filter_geom.to_crs('EPSG:32651')
-    bgy_bounds_filter_geom_utm.to_file(folder_path + '/' + prov + '_bgys.shp')
-
-
-    # Filter prov boundary according to the provinces and convert its projection
+def filter_prov_bounds():
     imtwg_bounds_filter = imtwg_bounds[imtwg_bounds.Pro_Name==prov].index
     imtwg_bounds_filter_geom = imtwg_bounds.loc[imtwg_bounds_filter, 'geometry']
     imtwg_bounds_filter_geom_utm = imtwg_bounds_filter_geom.to_crs('EPSG:32651')
     imtwg_bounds_filter_geom_utm.to_file(folder_path + '/' + prov + '_bounds.shp')
+
+def filter_bgy_bounds():
+    bgy_bounds_filter = bgy_bounds[bgy_bounds.Pro_Name==prov].index
+    bgy_bounds_filter_geom = bgy_bounds.loc[bgy_bounds_filter, 'geometry']
+    bgy_bounds_filter_geom.to_file(folder_path + '/' + prov + '_bgys.shp')
+    bgy_bounds_2 = gpd.read_file(folder_path + '/' + prov + '_bgys.shp')
+    gy_bounds_join = sjoin(bgy_bounds_2, bgy_bounds, how='left')
+    gy_bounds_join.to_file(folder_path + '/' + prov + '_bgys1.shp')
+
+# Read IMTWG provincial boundary
+imtwg_bounds = gpd.read_file('Boundary_Province_Visual.shp')
+bgy_bounds = gpd.read_file('bgys_utm.shp')
+
+for prov in provinces:
+    folder_path = os.path.join(fpath, 'input', prov) # Create the absolute path
+    output_path = os.path.join(fpath, 'output', prov)
+    filter_prov_bounds()
+    filter_bgy_bounds()
+
     for file in os.listdir(folder_path): # list all items in a dir
         if file.endswith('bounds.shp'):
             full_file_path = os.path.join(folder_path, file)
