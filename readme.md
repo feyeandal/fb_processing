@@ -6,10 +6,10 @@ This document contains the workflow for the processing of the Facebook Populatio
 
 - Python 3.9.1 or higher
 - Python `os`
-- Python `geopandas`
-- Python `fiona`
-- Python `pandas`
-- Python `numpy`
+- Python `geopandas 0.9.0`
+- Python `fiona 1.8.19`
+- Python `pandas 1.2.1`
+- Python `numpy 1.19.5`
 - GDAL
 - QGIS 3 or higher
 
