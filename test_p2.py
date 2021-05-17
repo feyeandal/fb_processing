@@ -55,7 +55,7 @@ def compute_affected(df1, df2):
     """
     Compute affected population by SSA4 haz.
     """
-    hazards_code = ['SSA', 'Fl']
+    hazards_code = ['SSA', 'Fl', 'LH']
     affected = gpd.overlay(ssa, pop, how='intersection')
     affected["A2"] = affected['geometry'].area
     affected["aff"] = (affected['A2']/affected['A1'])
