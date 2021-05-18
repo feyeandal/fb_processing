@@ -2,7 +2,16 @@ import os
 import geopandas as gpd
 from geopandas.tools import sjoin
 import fiona
-from config import *
+from config import fpath
+from config import input_path
+from config import output_folder
+from config import provinces
+
+def make_output_folders(path): # Create function to create output folders
+    try:
+        os.makedirs(output_path, exist_ok = True)
+    except Exception as e:
+        print(e)
 
 def filter_prov_bounds():
     imtwg_bounds_filter = imtwg_bounds[imtwg_bounds.Pro_Name==prov].index
@@ -18,6 +27,7 @@ def filter_bgy_bounds():
     gy_bounds_join = sjoin(bgy_bounds_2, bgy_bounds, how='left')
     gy_bounds_join.to_file(folder_path + '/' + prov + '_bgys1.shp')
 
+
 # Read IMTWG provincial boundary
 imtwg_bounds = gpd.read_file('Boundary_Province_Visual.shp')
 bgy_bounds = gpd.read_file('bgys_utm.shp')
@@ -25,6 +35,8 @@ bgy_bounds = gpd.read_file('bgys_utm.shp')
 for prov in provinces:
     folder_path = os.path.join(fpath, 'input', prov) # Create the absolute path
     output_path = os.path.join(fpath, 'output', prov)
+    make_output_folders(output_path)
+
     filter_prov_bounds()
     filter_bgy_bounds()
 
