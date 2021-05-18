@@ -1,52 +1,95 @@
+import os
 import pandas as pd
 import geopandas as gpd
 import numpy as np
-from config import *
+from config import fpath
+from config import input_path
+from config import output_folder
+from config import provinces
 
-for prov in provinces:
-    folder_path = os.path.join(fpath, 'input', prov) # Create the absolute path
-    output_path = os.path.join(fpath, 'output', prov)
+def make_output_folders(path): # Create function to create output folders
+    """
+    Create output folders.
+    """
+    try:
+        os.makedirs(output_path, exist_ok = True)
+    except Exception as e:
+        print(e)
 
-    read_ssa = []
-    read_lh = []
-    read_fl = []
+def get_filetype_of_file():
+    """
+    Function to get the filetype for a specific file.
+    """
+    for filetype in file_type_mapping:
+        if filetype in file:
+            for f in filetypem:
+                if f in filetype:
+                    return file
 
-    for file in os.listdir(output_path): 
-        if file.endswith('_SSA4_Bgy.shp'):
-            print(file)
-            out_file_path = os.path.join(output_path, file)
-            read_ssa_out = gpd.read_file(out_file_path)
-            affected_pivot = pd.pivot_table(read_ssa_out, values='Pop_Aff', index=['Bgy_Code', 'Bgy_Name', 'Pop2015', 'Mun_Code', 'Mun_Name', 'Pro_Code', 'Pro_Name', 'A1'], columns=['HAZ'], aggfunc=np.sum, fill_value=0)
-            affected_pivot2 = affected_pivot.rename(columns = ({1: 'SSA4_Low', 2: 'SSA4_Moderate', 3: 'SSA4_High'}))
-            # affected_pivot2.to_file('ssa.csv')
-            read_ssa.append(affected_pivot2)
+def process_file(filetype):
+    """
+    Process the file for pivot.
+    """
+    out_file_path = os.path.join(output_path, file)
+    shapefile_df = gpd.read_file(out_file_path)
+
+    # Pivot the table
+    affected_pivot = pd.pivot_table(
+        shapefile_df, 
+        index=['Bgy_Code', 'Bgy_Name', 'Pop2015', 'Mun_Code', 'Mun_Name', 'Pro_Code', 'Pro_Name', 'A1'],
+        values='Pop_Aff',
+        columns=['HAZ'],
+        aggfunc=np.sum,
+        fill_value=0
+    )
+
+    renamed_columns = affected_pivot.rename(columns=file_type_mapping[code]['columns'])
+    file_type_mapping[code]['data'].append(renamed_columns)
+
+if __name__ == "__main__":
+    for prov in provinces:
+        folder_path = os.path.join(fpath, 'input', prov) # Create the absolute path
+        output_path = os.path.join(fpath, 'output', prov)
+        make_output_folders(output_path)
+
+        file_type_mapping = {
+        'SSA4_Bgy': {
+            'columns': {1: 'SSA4_Low', 2: 'SSA4_Moderate', 3: 'SSA4_High'},
+            'data': []
+        },
+        'LH_Bgy': {
+            'columns': {1: 'LH_Low', 2: 'LH_Moderate', 3: 'LH_High'},
+            'data': []
+        },
+        'Fl_Bgy': {
+            'columns': {1: 'Fl_Low', 2: 'Fl_Moderate', 3: 'Fl_High'},
+            'data': []
+        }
+        }
         
-        elif file.endswith('LH_Bgy.shp'):
-            # print(file)
-            out_file_path = os.path.join(output_path, file)
-            read_lh_out = gpd.read_file(out_file_path)
-            affected_pivot = pd.pivot_table(read_lh_out, values='Pop_Aff', index=['Bgy_Code', 'Bgy_Name', 'Pop2015', 'Mun_Code', 'Mun_Name', 'Pro_Code', 'Pro_Name', 'A1'], columns=['LH'], aggfunc=np.sum, fill_value=0)
-            affected_pivot2= affected_pivot.rename(columns = ({1: 'LH_Low', 2: 'LH_Moderate', 3: 'LH_High'}))
-            read_lh.append(affected_pivot2)
+        filetype_code = ['SSA4_Bgy', 'LH_Bgy', 'Fl_Bgy']
+
+        for file in os.listdir(output_path):
+            if file.endswith('.shp'):
+                for filetype in file_type_mapping:
+                    if filetype in file:
+                        for code in filetype_code:
+                            if code in filetype:
+                                process_file(file)
+
+
+        all_results = []
+        for key in file_type_mapping:
+            all_results+=file_type_mapping[key]['data']
         
-        elif file.endswith('_Fl_Bgy.shp'):
-            out_file_path = os.path.join(output_path, file)
-            read_fl_out = gpd.read_file(out_file_path)
-            affected_pivot = pd.pivot_table(read_fl_out, values='Pop_Aff', index=['Bgy_Code', 'Bgy_Name', 'Pop2015', 'Mun_Code', 'Mun_Name', 'Pro_Code', 'Pro_Name', 'A1'], columns=['HAZ'], aggfunc=np.sum, fill_value=0)
-            affected_pivot2= affected_pivot.rename(columns = ({1: 'Fl_Low', 2: 'Fl_Moderate', 3: 'Fl_High'}))
-            read_fl.append(affected_pivot2)
-    
-    for ssa in read_ssa:
-        print(ssa)
-        for lh in read_lh:
-            print(lh)
-            for fl in read_fl:
-                print('flood')
-                print(fl)
-                # result = (pd.merge(pd.merge(lh, ssa, on=['Bgy_Code', 'Bgy_Name', 'Pop2015', 'Mun_Code', 'Mun_Name', 'Pro_Code', 'Pro_Name', 'A1']), fl, on=['Bgy_Code', 'Bgy_Name', 'Pop2015', 'Mun_Code', 'Mun_Name', 'Pro_Code', 'Pro_Name', 'A1']))
-                result = (lh.merge(ssa, on=['Bgy_Name', 'Pop2015', 'Mun_Code', 'Mun_Name', 'Pro_Code', 'Pro_Name', 'A1'], how='outer')).merge(fl, on=['Bgy_Name', 'Pop2015', 'Mun_Code', 'Mun_Name', 'Pro_Code', 'Pro_Name', 'A1'], how='outer')
-                # result2 = result.merge(fl, on=['Bgy_Name', 'Pop2015', 'Mun_Code', 'Mun_Name', 'Pro_Code', 'Pro_Name', 'A1'], how='outer')
-                # result23 = result2.drop(['_merge'], axis=1, inplace=True, errors='ignore')
-                # print(result2)
-                # .query('_merge != "both"').drop('_merge', 1)
-                result.to_csv(output_path + '/' + prov + '_affected.csv')
+        for ssa in file_type_mapping['SSA4_Bgy']['data']:
+            for lh in file_type_mapping['LH_Bgy']['data']:
+                for fl in file_type_mapping['Fl_Bgy']['data']:
+                    print(fl)
+                    result = (lh.merge(ssa,
+                    on=['Bgy_Name', 'Pop2015', 'Mun_Code', 'Mun_Name', 'Pro_Code', 'Pro_Name', 'A1'], 
+                    how='outer')).merge(fl,
+                    on=['Bgy_Name', 'Pop2015', 'Mun_Code', 'Mun_Name', 'Pro_Code', 'Pro_Name', 'A1'], 
+                    how='outer')
+                    print(result)
+                    result.to_csv(output_path + '/' + prov + '_affected.csv')
