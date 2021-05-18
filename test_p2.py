@@ -1,6 +1,19 @@
-from os import path
+import os
 import geopandas as gpd
-from config import *
+from config import fpath
+from config import input_path
+from config import output_folder
+from config import provinces
+
+def make_output_folders(path): # Create function to create output folders
+    # make folder using path
+    """
+    Create output folders.
+    """
+    try:
+        os.makedirs(output_path, exist_ok = True)
+    except Exception as e:
+        print(e)
 
 def pre_processing_data(output_path):
     """
@@ -8,13 +21,13 @@ def pre_processing_data(output_path):
     and dissolving shapes.
     """
     hazards_code = ['SSA', 'LH', 'Fl']
-                # Convert haz file to UTM
+    # Convert haz file to UTM
     ssa_utm = read_haz.to_crs('EPSG:32651')
     for code in hazards_code:
         if code in haz:
             print('Converting haz files to UTM')
             ssa_utm.to_file(output_path + "/" + prov + '_' + code + '_utm.shp')
-    # Rename all haz files column to 'HAZ' for consistency
+    # Rename all haz files column to 'HAZ' for consitency
     col_names = ['LH', 'VAR']
     for col in col_names:
         if col in ssa_utm.columns:
@@ -57,9 +70,11 @@ if __name__ == "__main__":
     for prov in provinces:
         folder_path = os.path.join(fpath, 'input', prov) # Create the absolute path
         output_path = os.path.join(fpath, 'output', prov)
+        make_output_folders(output_path)
+
         for file in os.listdir(folder_path):
             # print(file) # list all items in a dir
-            hazards = ['StormSurge_SSA4.shp', 'LH.shp', 'Fl.shp']
+            hazards = ['StormSurge_SSA4.shp', 'Fl.shp', 'LH.shp',]
             for haz in hazards:
                 if file.endswith(haz):
                     full_file_path = os.path.join(folder_path, file)
