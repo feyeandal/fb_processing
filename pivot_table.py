@@ -53,7 +53,7 @@ if __name__ == "__main__":
         make_output_folders(output_path)
 
         file_type_mapping = {
-        'SSA4_Bgy': {
+        'SSA_Bgy': {
             'columns': {1: 'SSA4_Low', 2: 'SSA4_Moderate', 3: 'SSA4_High'},
             'data': []
         },
@@ -67,7 +67,7 @@ if __name__ == "__main__":
         }
         }
         
-        filetype_code = ['SSA4_Bgy', 'LH_Bgy', 'Fl_Bgy']
+        filetype_code = ['SSA_Bgy', 'LH_Bgy', 'Fl_Bgy']
 
         for file in os.listdir(output_path):
             if file.endswith('.shp'):
@@ -75,15 +75,18 @@ if __name__ == "__main__":
                     if filetype in file:
                         for code in filetype_code:
                             if code in filetype:
+                                print(file)
                                 process_file(file)
 
 
         all_results = []
         for key in file_type_mapping:
             all_results+=file_type_mapping[key]['data']
-        
-        for ssa in file_type_mapping['SSA4_Bgy']['data']:
+
+        for ssa in file_type_mapping['SSA_Bgy']['data']:
+            print(ssa)
             for lh in file_type_mapping['LH_Bgy']['data']:
+                print(lh)
                 for fl in file_type_mapping['Fl_Bgy']['data']:
                     print(fl)
                     result = (lh.merge(ssa,
