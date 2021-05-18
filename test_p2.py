@@ -20,7 +20,7 @@ def pre_processing_data(output_path):
     Does pre-processing to the input hazard files such as converting its projection to UTM, normalizing haz cols, fixing geometries,
     and dissolving shapes.
     """
-    hazards_code = ['SSA', 'LH', 'Fl']
+    hazards_code = ['SSA', 'Fl', 'LH']
     # Convert haz file to UTM
     ssa_utm = read_haz.to_crs('EPSG:32651')
     for code in hazards_code:
@@ -74,7 +74,7 @@ if __name__ == "__main__":
 
         for file in os.listdir(folder_path):
             # print(file) # list all items in a dir
-            hazards = ['StormSurge_SSA4.shp', 'Fl.shp', 'LH.shp',]
+            hazards = ['StormSurge_SSA4.shp', 'Fl.shp', 'LH.shp']
             for haz in hazards:
                 if file.endswith(haz):
                     full_file_path = os.path.join(folder_path, file)
@@ -113,6 +113,7 @@ if __name__ == "__main__":
 
         hazards_code = ['SSA', 'Fl', 'LH']
         for filed in filename_t:
+            print(filed)
             print('Computing for affected population')
             # print(filed)
             for ssa in compare_ssa:
