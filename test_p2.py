@@ -64,7 +64,7 @@ def compute_affected(df1, df2):
     affected["Pop_Aff"] = (affected['A2']/affected['A1']) * affected['Pop2015']
     for hazard in hazards_code:
         if hazard in filed:
-            affected.to_file(output_path + '/' + prov + "_" + hazard + '_affected.shp')
+            affected.to_file(output_path + '/' + prov + "_" + hazard + '_Bgy.shp')
 
 if __name__ == "__main__":
     for prov in provinces:
