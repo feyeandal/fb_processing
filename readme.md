@@ -35,7 +35,7 @@ The processing of the data is divided into three methods:
 
 To be able to conduct this process, you need to prepare the following data:
 
-1. IMTWG Provincial Boundary. *No need to rename/reproject the file*.
+1. ![IMTWG Provincial Boundary](https://drive.google.com/drive/folders/1bVsda5GlkLlbmS2yFIsCW-rpGGJTfah-) (Boundary_Province_Visual.shp). *No need to rename/reproject the file*.
 2. Facebook Population Density Data. *This is already reprojected to UTM so no need to reproject. Please do not rename the file as well.*
 3. Barangay Boundaries with 2015 Census.
 4. Hazard (SSA4, Landslide Hazards, and 100-Year Flood) per province. Name it as: `Province_StormSurge_SSA4.shp`, `Province_Fl.shp`, `Province_LH.shp`
