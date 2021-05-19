@@ -46,7 +46,7 @@ To be able to conduct this process, you need to prepare the following data:
 
 The python scripts are modeled to read input files and produce output files in a structured format. Hence, you need to follow the steps below.
 
-1. Download the python scripts and the model builder from this link.
+1. Download the python scripts and the model builder from this repository.
 2. On your machine, identify where you will place the python scripts and the input files (data required). All of these data must be stored on your base folder path.
 
     e.g. `/Users/localUser/UPRI/FacebookProcessing`
