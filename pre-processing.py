@@ -54,10 +54,11 @@ for prov in provinces:
             clip_tif = "gdal_translate -projwin " + str(get_bounds[0]) +  " " + str(get_bounds[3]) + " " + str(get_bounds[2]) + " " + str(get_bounds[1]) + " -of GTiff FBPD_utm.tif " + folder_path + '/' + prov + "_clip.tif"
             os.system(clip_tif)
             
-    # for file in os.listdir(output_path):   
+    for file in os.listdir(folder_path):   
         if file.endswith('_clip.tif'):
             full_file_path = os.path.join(folder_path, file)
             out_file_path = os.path.join(output_path, file)
             # Polygonize Clipped Provincial Population
-            test_poly = "gdal_polygonize.py " + out_file_path + " " + folder_path + '/' + prov + "_pop_poly.gpkg -b 1 -f 'GPKG'"
+            test_poly = "gdal_polygonize.py " + full_file_path + " " + folder_path + '/' + prov + "_pop_poly.gpkg -b 1 -f 'GPKG'"
+            # print(test_poly)
             os.system(test_poly)
