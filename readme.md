@@ -21,6 +21,7 @@ All of the mentioned tools above are mandatory, so make sure that you have prope
 2. Download `pip` on your machine. For Windows users, check this [guide](https://phoenixnap.com/kb/install-pip-windows#ftoc-heading-3).
 3. Download `GDAL` and other dependencies mentioned on your machine. GDAL is a translator library for raster and vector spatial data formats. We will be using GDAL to process the raster data from Facebook. Check this [link](https://www.lfd.uci.edu/~gohlke/pythonlibs/) to download.
 4. Once everything is downloaded on your machine, we need to tell your OS where the python and pip installations are located. We need to add some system variables on your python path.
+![system var](https://raw.githubusercontent.com/feyeandal/photos/master/system_var.png)
 5. Install the dependencies by doing: `pip install file.whl`.
 6. For Anaconda users, you may install GDAL by running `conda create -n gdal_env -c conda-forge gdal` on your conda terminal.
 
