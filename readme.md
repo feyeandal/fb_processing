@@ -91,7 +91,7 @@ Your folder configuration should look similar to this:
 
 1. On your terminal (cmd prompt/ conda), go to your base folder path. Run `cd /Users/localUser/UPRI/FacebookProcessing`
 2. Run `python pre-processing.py` to generate the clipped population density data and the polygonized population density data.
-3. If successfully ran, your terminal should look similar like this:
+3. If successfully ran, your terminal should look similar like this: ![pre-process1](https://raw.githubusercontent.com/feyeandal/photos/master/terminal_preprocess1.png)
 4. Check your `input` > `Province` folders for the generated files:
     - `Province_clip.tif`- clipped population data according to province
     - `Province_pop_poly.gpkg` - polygonized population data
