@@ -53,21 +53,21 @@ if __name__ == "__main__":
         make_output_folders(output_path)
 
         file_type_mapping = {
-        'SSA_Bgy': {
+        'SSA_affected': {
             'columns': {1: 'SSA4_Low', 2: 'SSA4_Moderate', 3: 'SSA4_High'},
             'data': []
         },
-        'LH_Bgy': {
+        'LH_affected': {
             'columns': {1: 'LH_Low', 2: 'LH_Moderate', 3: 'LH_High'},
             'data': []
         },
-        'Fl_Bgy': {
+        'Fl_affected': {
             'columns': {1: 'Fl_Low', 2: 'Fl_Moderate', 3: 'Fl_High'},
             'data': []
         }
         }
         
-        filetype_code = ['SSA_Bgy', 'LH_Bgy', 'Fl_Bgy']
+        filetype_code = ['SSA_affected', 'LH_affected', 'Fl_affected']
 
         for file in os.listdir(output_path):
             if file.endswith('.shp'):
@@ -83,11 +83,11 @@ if __name__ == "__main__":
         for key in file_type_mapping:
             all_results+=file_type_mapping[key]['data']
 
-        for ssa in file_type_mapping['SSA_Bgy']['data']:
+        for ssa in file_type_mapping['SSA_affected']['data']:
             print(ssa)
-            for lh in file_type_mapping['LH_Bgy']['data']:
+            for lh in file_type_mapping['LH_affected']['data']:
                 print(lh)
-                for fl in file_type_mapping['Fl_Bgy']['data']:
+                for fl in file_type_mapping['Fl_affected']['data']:
                     print(fl)
                     result = (lh.merge(ssa,
                     on=['Bgy_Name', 'Pop2015', 'Mun_Code', 'Mun_Name', 'Pro_Code', 'Pro_Name', 'A1'], 
