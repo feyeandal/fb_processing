@@ -40,6 +40,7 @@ def pre_processing_data(output_path):
     haz_diss_buffer = haz_diss_dissolve.buffer(0)
     for code in hazards_code:
         if code in haz:
+            # Here change creation of path using abspath and .join
             haz_diss_buffer.to_file(output_path + "/" + prov + "_" + code + '_diss.shp')
 
 def compute_area(output_path):
@@ -47,9 +48,12 @@ def compute_area(output_path):
     Dissolve intersected brgy data by barangay code.
     Also computes for the area of population per barangay.
     """
+    # San galing si read_int? Di naman sya na declare as parameter ni function. It should be declared before being
+    # used inside the scope of this function 
     pop_filter = read_int[['Bgy_Code', 'Bgy_Name', 'Pop2015', 'Mun_Code', 'Mun_Name', 'Pro_Code', 'Pro_Name', 'geometry']]
     pop_diss = pop_filter.dissolve(by='Bgy_Code')
     pop_diss["A1"] = pop_diss['geometry'].area
+    # Here change creation of path using abspath and .join
     pop_diss.to_file(output_path + '/' + prov + '_FB_Bgy.gpkg', driver='GPKG')
     return pop_diss
 
@@ -64,12 +68,14 @@ def compute_affected(df1, df2):
     affected["Pop_Aff"] = (affected['A2']/affected['A1']) * affected['Pop2015']
     for hazard in hazards_code:
         if hazard in filed:
+            # Here change creation of path using abspath and .join
             affected.to_file(output_path + '/' + prov + "_" + hazard + '_Bgy.shp')
 
 if __name__ == "__main__":
     for prov in provinces:
-        folder_path = os.path.join(fpath, 'input', prov) # Create the absolute path
-        output_path = os.path.join(fpath, 'output', prov)
+        # Add os.path.abspath to joins kasi magkaka error sa windows
+        folder_path = os.path.abspath(os.path.join(fpath, 'input', prov)) # Create the absolute path
+        output_path = os.path.abspath(os.path.join(fpath, 'output', prov))
         make_output_folders(output_path)
 
         for file in os.listdir(folder_path):
