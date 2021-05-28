@@ -14,18 +14,14 @@ def make_output_folders(path): # Create function to create output folders
         print(e)
 
 def filter_prov_bounds():
-    imtwg_bounds_filter = imtwg_bounds[imtwg_bounds.Pro_Name==prov].index
+    imtwg_bounds_filter = imtwg_bounds[imtwg_bounds.PHCode_Pro==prov].index
     imtwg_bounds_filter_geom = imtwg_bounds.loc[imtwg_bounds_filter, 'geometry']
     imtwg_bounds_filter_geom_utm = imtwg_bounds_filter_geom.to_crs('EPSG:32651')
-    imtwg_bounds_filter_geom_utm.to_file(folder_path + '/' + prov + '_bounds.shp')
+    imtwg_bounds_filter_geom_utm.to_file(os.path.abspath(os.path.join(folder_path, prov + '_bounds.shp')))
 
 def filter_bgy_bounds():
-    bgy_bounds_filter = bgy_bounds[bgy_bounds.Pro_Name==prov].index
-    bgy_bounds_filter_geom = bgy_bounds.loc[bgy_bounds_filter, 'geometry']
-    bgy_bounds_filter_geom.to_file(folder_path + '/' + prov + '_bgys.shp')
-    bgy_bounds_2 = gpd.read_file(folder_path + '/' + prov + '_bgys.shp')
-    gy_bounds_join = sjoin(bgy_bounds_2, bgy_bounds, how='left')
-    gy_bounds_join.to_file(folder_path + '/' + prov + '_bgys1.shp')
+    bgy_bounds_filter = bgy_bounds[bgy_bounds.Pro_Code==prov]
+    bgy_bounds_filter.to_file(os.path.abspath(os.path.join(folder_path, prov + '_bgys.shp')))
 
 
 # Read IMTWG provincial boundary
