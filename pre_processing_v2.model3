@@ -1,0 +1,260 @@
+<!DOCTYPE model>
+<Option type="Map">
+  <Option name="children" type="Map">
+    <Option name="gdal:polygonize_1" type="Map">
+      <Option name="active" value="true" type="bool"/>
+      <Option name="alg_config"/>
+      <Option name="alg_id" value="gdal:polygonize" type="QString"/>
+      <Option name="color" value="" type="QString"/>
+      <Option name="comment" type="Map">
+        <Option name="color" value="" type="QString"/>
+        <Option name="component_description" value="" type="QString"/>
+        <Option name="component_height" value="60" type="double"/>
+        <Option name="component_pos_x" value="902.6666666666666" type="double"/>
+        <Option name="component_pos_y" value="572.3333333333333" type="double"/>
+        <Option name="component_width" value="100" type="double"/>
+        <Option name="outputs_collapsed" value="true" type="bool"/>
+        <Option name="parameters_collapsed" value="true" type="bool"/>
+      </Option>
+      <Option name="component_description" value="Polygonize (raster to vector)" type="QString"/>
+      <Option name="component_height" value="51.333333333333314" type="double"/>
+      <Option name="component_pos_x" value="245.33333333333331" type="double"/>
+      <Option name="component_pos_y" value="283.99999999999994" type="double"/>
+      <Option name="component_width" value="200" type="double"/>
+      <Option name="dependencies"/>
+      <Option name="id" value="gdal:polygonize_1" type="QString"/>
+      <Option name="outputs"/>
+      <Option name="outputs_collapsed" value="true" type="bool"/>
+      <Option name="parameters_collapsed" value="true" type="bool"/>
+      <Option name="params" type="Map">
+        <Option name="BAND" type="List">
+          <Option type="Map">
+            <Option name="source" value="2" type="int"/>
+            <Option name="static_value" value="1" type="QString"/>
+          </Option>
+        </Option>
+        <Option name="EIGHT_CONNECTEDNESS" type="List">
+          <Option type="Map">
+            <Option name="source" value="2" type="int"/>
+            <Option name="static_value" value="false" type="bool"/>
+          </Option>
+        </Option>
+        <Option name="EXTRA" type="List">
+          <Option type="Map">
+            <Option name="source" value="2" type="int"/>
+            <Option name="static_value" value="" type="QString"/>
+          </Option>
+        </Option>
+        <Option name="FIELD" type="List">
+          <Option type="Map">
+            <Option name="source" value="2" type="int"/>
+            <Option name="static_value" value="DN" type="QString"/>
+          </Option>
+        </Option>
+        <Option name="INPUT" type="List">
+          <Option type="Map">
+            <Option name="source" value="2" type="int"/>
+            <Option name="static_value" value="PH084800000_clip_b6dcdc7a_d624_4800_bf8e_7dca887a056e" type="QString"/>
+          </Option>
+        </Option>
+      </Option>
+    </Option>
+    <Option name="native:fixgeometries_1" type="Map">
+      <Option name="active" value="true" type="bool"/>
+      <Option name="alg_config"/>
+      <Option name="alg_id" value="native:fixgeometries" type="QString"/>
+      <Option name="color" value="" type="QString"/>
+      <Option name="comment" type="Map">
+        <Option name="color" value="" type="QString"/>
+        <Option name="component_description" value="" type="QString"/>
+        <Option name="component_height" value="60" type="double"/>
+        <Option name="component_pos_x" value="320" type="double"/>
+        <Option name="component_pos_y" value="115" type="double"/>
+        <Option name="component_width" value="100" type="double"/>
+        <Option name="outputs_collapsed" value="true" type="bool"/>
+        <Option name="parameters_collapsed" value="true" type="bool"/>
+      </Option>
+      <Option name="component_description" value="Fix geometries Pop" type="QString"/>
+      <Option name="component_height" value="30" type="double"/>
+      <Option name="component_pos_x" value="216" type="double"/>
+      <Option name="component_pos_y" value="417.3333333333333" type="double"/>
+      <Option name="component_width" value="200" type="double"/>
+      <Option name="dependencies"/>
+      <Option name="id" value="native:fixgeometries_1" type="QString"/>
+      <Option name="outputs"/>
+      <Option name="outputs_collapsed" value="true" type="bool"/>
+      <Option name="parameters_collapsed" value="true" type="bool"/>
+      <Option name="params" type="Map">
+        <Option name="INPUT" type="List">
+          <Option type="Map">
+            <Option name="child_id" value="gdal:polygonize_1" type="QString"/>
+            <Option name="output_name" value="OUTPUT" type="QString"/>
+            <Option name="source" value="1" type="int"/>
+          </Option>
+        </Option>
+      </Option>
+    </Option>
+    <Option name="native:fixgeometries_2" type="Map">
+      <Option name="active" value="true" type="bool"/>
+      <Option name="alg_config"/>
+      <Option name="alg_id" value="native:fixgeometries" type="QString"/>
+      <Option name="color" value="" type="QString"/>
+      <Option name="comment" type="Map">
+        <Option name="color" value="" type="QString"/>
+        <Option name="component_description" value="" type="QString"/>
+        <Option name="component_height" value="60" type="double"/>
+        <Option name="component_pos_x" value="726.6666666666666" type="double"/>
+        <Option name="component_pos_y" value="130" type="double"/>
+        <Option name="component_width" value="100" type="double"/>
+        <Option name="outputs_collapsed" value="true" type="bool"/>
+        <Option name="parameters_collapsed" value="true" type="bool"/>
+      </Option>
+      <Option name="component_description" value="Fix geometries Bgys" type="QString"/>
+      <Option name="component_height" value="30" type="double"/>
+      <Option name="component_pos_x" value="482.66666666666663" type="double"/>
+      <Option name="component_pos_y" value="405.66666666666663" type="double"/>
+      <Option name="component_width" value="200" type="double"/>
+      <Option name="dependencies"/>
+      <Option name="id" value="native:fixgeometries_2" type="QString"/>
+      <Option name="outputs"/>
+      <Option name="outputs_collapsed" value="true" type="bool"/>
+      <Option name="parameters_collapsed" value="true" type="bool"/>
+      <Option name="params" type="Map">
+        <Option name="INPUT" type="List">
+          <Option type="Map">
+            <Option name="source" value="2" type="int"/>
+            <Option name="static_value" value="/Users/feyeandal/Documents/Work/UPRI/test_prince/test_3/bgys_utm.shp" type="QString"/>
+          </Option>
+        </Option>
+      </Option>
+    </Option>
+    <Option name="native:intersection_1" type="Map">
+      <Option name="active" value="true" type="bool"/>
+      <Option name="alg_config"/>
+      <Option name="alg_id" value="native:intersection" type="QString"/>
+      <Option name="color" value="" type="QString"/>
+      <Option name="comment" type="Map">
+        <Option name="color" value="" type="QString"/>
+        <Option name="component_description" value="" type="QString"/>
+        <Option name="component_height" value="60" type="double"/>
+        <Option name="component_pos_x" value="409.3333333333333" type="double"/>
+        <Option name="component_pos_y" value="277.66666666666663" type="double"/>
+        <Option name="component_width" value="100" type="double"/>
+        <Option name="outputs_collapsed" value="true" type="bool"/>
+        <Option name="parameters_collapsed" value="true" type="bool"/>
+      </Option>
+      <Option name="component_description" value="Intersection" type="QString"/>
+      <Option name="component_height" value="30" type="double"/>
+      <Option name="component_pos_x" value="450.6666666666666" type="double"/>
+      <Option name="component_pos_y" value="517.3333333333333" type="double"/>
+      <Option name="component_width" value="200" type="double"/>
+      <Option name="dependencies"/>
+      <Option name="id" value="native:intersection_1" type="QString"/>
+      <Option name="outputs" type="Map">
+        <Option name="out_inte" type="Map">
+          <Option name="child_id" value="native:intersection_1" type="QString"/>
+          <Option name="color" value="" type="QString"/>
+          <Option name="comment" type="Map">
+            <Option name="color" value="" type="QString"/>
+            <Option name="component_description" value="" type="QString"/>
+            <Option name="component_height" value="60" type="double"/>
+            <Option name="component_pos_x" value="0" type="double"/>
+            <Option name="component_pos_y" value="0" type="double"/>
+            <Option name="component_width" value="100" type="double"/>
+            <Option name="outputs_collapsed" value="true" type="bool"/>
+            <Option name="parameters_collapsed" value="true" type="bool"/>
+          </Option>
+          <Option name="component_description" value="out_inte" type="QString"/>
+          <Option name="component_height" value="30" type="double"/>
+          <Option name="component_pos_x" value="650.6666666666666" type="double"/>
+          <Option name="component_pos_y" value="562.3333333333333" type="double"/>
+          <Option name="component_width" value="200" type="double"/>
+          <Option name="default_value" type="invalid"/>
+          <Option name="mandatory" value="false" type="bool"/>
+          <Option name="name" value="out_inte" type="QString"/>
+          <Option name="output_name" value="OUTPUT" type="QString"/>
+          <Option name="outputs_collapsed" value="true" type="bool"/>
+          <Option name="parameters_collapsed" value="true" type="bool"/>
+        </Option>
+      </Option>
+      <Option name="outputs_collapsed" value="true" type="bool"/>
+      <Option name="parameters_collapsed" value="true" type="bool"/>
+      <Option name="params" type="Map">
+        <Option name="INPUT" type="List">
+          <Option type="Map">
+            <Option name="child_id" value="native:fixgeometries_1" type="QString"/>
+            <Option name="output_name" value="OUTPUT" type="QString"/>
+            <Option name="source" value="1" type="int"/>
+          </Option>
+        </Option>
+        <Option name="INPUT_FIELDS" type="List">
+          <Option type="Map">
+            <Option name="source" value="2" type="int"/>
+            <Option name="static_value" type="StringList">
+              <Option value="" type="QString"/>
+            </Option>
+          </Option>
+        </Option>
+        <Option name="OVERLAY" type="List">
+          <Option type="Map">
+            <Option name="child_id" value="native:fixgeometries_2" type="QString"/>
+            <Option name="output_name" value="OUTPUT" type="QString"/>
+            <Option name="source" value="1" type="int"/>
+          </Option>
+        </Option>
+        <Option name="OVERLAY_FIELDS" type="List">
+          <Option type="Map">
+            <Option name="source" value="2" type="int"/>
+            <Option name="static_value" type="StringList">
+              <Option value="" type="QString"/>
+            </Option>
+          </Option>
+        </Option>
+        <Option name="OVERLAY_FIELDS_PREFIX" type="List">
+          <Option type="Map">
+            <Option name="source" value="2" type="int"/>
+            <Option name="static_value" value="" type="QString"/>
+          </Option>
+        </Option>
+      </Option>
+    </Option>
+  </Option>
+  <Option name="designerParameterValues" type="Map">
+    <Option name="VERBOSE_LOG" value="true" type="bool"/>
+    <Option name="native:intersection_1:out_inte" type="QgsProcessingOutputLayerDefinition">
+      <Option type="Map">
+        <Option name="create_options" type="Map">
+          <Option name="fileEncoding" value="System" type="QString"/>
+        </Option>
+        <Option name="sink" type="Map">
+          <Option name="active" value="true" type="bool"/>
+          <Option name="type" value="1" type="int"/>
+          <Option name="val" value="/Users/feyeandal/Documents/Work/UPRI/test_prince/test_3/input/PAMPANGA/PAMPANGA_inte.gpkg" type="QString"/>
+        </Option>
+      </Option>
+    </Option>
+  </Option>
+  <Option name="groupBoxes"/>
+  <Option name="help"/>
+  <Option name="modelVariables"/>
+  <Option name="model_group" value="" type="QString"/>
+  <Option name="model_name" value="pre-processing_2" type="QString"/>
+  <Option name="parameterDefinitions" type="Map">
+    <Option name="native:intersection_1:out_inte" type="Map">
+      <Option name="create_by_default" value="true" type="bool"/>
+      <Option name="data_type" value="-1" type="int"/>
+      <Option name="default" type="invalid"/>
+      <Option name="defaultGui" type="invalid"/>
+      <Option name="description" value="out_inte" type="QString"/>
+      <Option name="flags" value="0" type="int"/>
+      <Option name="help" value="" type="QString"/>
+      <Option name="metadata"/>
+      <Option name="name" value="native:intersection_1:out_inte" type="QString"/>
+      <Option name="parameter_type" value="sink" type="QString"/>
+      <Option name="supports_append" value="false" type="bool"/>
+      <Option name="supports_non_file_outputs" value="true" type="bool"/>
+    </Option>
+  </Option>
+  <Option name="parameterOrder"/>
+  <Option name="parameters"/>
+</Option>
