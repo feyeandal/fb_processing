@@ -58,7 +58,7 @@ The python scripts are modeled to read input files and produce output files in a
         - `Province 2`
         - `Province 3`
 
-When naming the `Province` folders, make sure to name it according to the `Pro_Name` column of the IMTWG Provincial Boundaries data. Failure to name it in this format will cause the Pre-Processing script to fail.
+When naming the `Province` folders, make sure to name it according to the `Pro_Code` column of the IMTWG Provincial Boundaries data. Failure to name it in this format will cause the Pre-Processing script to fail.
 
 All output files will be stored separately on the designated `Province` folder inside the `output` folder. These folders are automatically generated from the script.
 
@@ -106,7 +106,7 @@ In this step, you will be needing to run the pre-processing tool using QGIS. Thi
 1. Open QGIS.
 2. Go to `Processing` > `Graphical Modeler` > `Open` > `pre-processing_2.model3` > `Open`
 3. Double-click the `Fix Geometries` algorithm and select the `Input Layer` as the `_poly.gpkg` from your `Input` > `Province` folder. This is one of the output files from the Pre-processing Part 1.
-4. In the `Intersection` algorithm, set the `Input Layer` as the barangay boundaries (`_bgys1.shp`) from your `Input` > `Province` folder. 
+4. In the `Intersection` algorithm, set the `Input Layer` as the barangay boundaries (`_bgys.shp`) from your `Input` > `Province` folder. 
 5. Click `Run model` to start the processing. 
 
 ![Graphic modeler for QGIS](https://raw.githubusercontent.com/feyeandal/photos/master/pre_processing.png)
